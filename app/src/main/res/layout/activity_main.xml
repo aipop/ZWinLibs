@@ -6,13 +6,10 @@
     android:layout_height="match_parent"
     tools:context="com.zwin.lib.MainActivity">
 
-    <Toolbar
+    <com.ashokvarma.bottomnavigation.BottomNavigationBar
+        android:layout_gravity="bottom"
+        android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></Toolbar>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@mipmap/abc"/>
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

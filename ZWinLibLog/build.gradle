@@ -1,0 +1,63 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+apply plugin: 'com.novoda.bintray-release'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "24.0.1"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0.1"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+}
+
+task makeJar(dependsOn: ['compileReleaseJavaWithJavac'], type: Jar) {
+    delete(project.buildDir.absolutePath+"/libs/")
+    archiveName = 'zwinliblog_v'+android.defaultConfig.versionName+'.jar'
+    def srcClassDir = [project.buildDir.absolutePath + "/intermediates/classes/release"];
+    from srcClassDir
+    from project.zipTree("libs/android-logging-log4j-1.0.3.jar")
+    from project.zipTree("libs/log4j-1.2.17.jar")
+    def srcJavaDir = ["src/main/java"];
+    from srcJavaDir
+    exclude('**/R.class')
+    exclude('**/R\$*.class')
+}
+
+makeJar.dependsOn(build)
+//在终端执行生成JAR包
+// ./gradlew makeJar
+
+publish {
+    userOrg = 'aipop'
+    groupId = 'com.zwin.lib'
+    artifactId = 'ZWinLibLog'
+    version = '1.0.1'
+    description = 'A library of database operations'
+    website = "https://github.com/aipop/ZWinLibs.git"
+}
