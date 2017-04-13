@@ -6,11 +6,11 @@
 DatabaseManager databaseManager = new DatabaseManager(MainActivity.this);<br>
 databaseManager.insert(javaBean);<br>
 其中javaBean是一个普通bean对象，可以对改bean对象和字段进行注解，从而达到对数据库操作的效果，支持的标签如下：<br>
-*表格标签@Table<br>
+* 表格标签@Table<br>
 databaseName：数据库名称<br>
 tableName：表名称<br>
 vesion：版本号<br>
-*字段标签@Property<br>
+* 字段标签@Property<br>
 name：数据表里的字段名<br>
 isPrimaryKey：是否作为主键<br>
 isAutoincrement：是否自增长<br>
